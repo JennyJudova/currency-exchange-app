@@ -1,9 +1,10 @@
 //https://github.com/transferwise/currency-flags
-console.log('hello there')
 
 import React from 'react'
 import ReactDOM from 'react-dom'
 import axios from 'axios'
+import SelectCurrency from 'react-select-currency'
+
 
 class App extends React.Component {
   constructor() {
@@ -12,12 +13,13 @@ class App extends React.Component {
     this.state = {
       data: {},
       greeting: 'hello', 
-      currency: null, 
+      currency: '', 
       ammount: null,
-      date: null
+      date: ''
     }
 
     this.handleChange = this.handleChange.bind(this)
+    // this.onSelectedCurrency = this.onSelectedCurrency.bind(this)
   }
 
   componentDidMount() {
@@ -31,6 +33,10 @@ class App extends React.Component {
     this.setState({ [e.target.name]: e.target.value })
   }
 
+  // onSelectedCurrency(e) {
+  //   console.log(e.target.value)
+  // }
+
 
   render() {
     console.log(this.state.currency, this.state.ammount, this.state.date)
@@ -39,7 +45,15 @@ class App extends React.Component {
       <h1>{this.state.greeting}</h1>
       <p>How much would you recieve for CURRENCY AMMOUNT in DATE</p>
       <form>
-        <div className='date'>
+        <div className='currency'>
+          <div>
+            <SelectCurrency 
+              type='currency'
+              name='currency'
+              onChange={this.handleChange}
+              value={this.state.currency}
+            />
+          </div>
           <input
             type='date'
             name='date'
@@ -59,3 +73,13 @@ ReactDOM.render(
   <App />,
   document.getElementById('root')
 )
+
+
+
+
+{/* <input
+type='currency'
+name='currency'
+onChange={this.handleChange}
+value={this.state.currency}
+/> */}
